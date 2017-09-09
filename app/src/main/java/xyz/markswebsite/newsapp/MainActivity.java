@@ -1,5 +1,6 @@
 package xyz.markswebsite.newsapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import xyz.markswebsite.newsapp.models.ArticlesResponse;
 import xyz.markswebsite.newsapp.models.SortedOrder;
 import xyz.markswebsite.newsapp.models.Source;
 import xyz.markswebsite.newsapp.models.SourcesResponse;
+import xyz.markswebsite.newsapp.onboarding.OnboardingPager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView textView = (TextView) findViewById(R.id.temporaryid);
 
+        startActivity(new Intent(this, OnboardingPager.class));
+
+        /*
         // Define the interceptor, add authentication headers
         Interceptor interceptor = new Interceptor() {
             @Override
@@ -83,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "WTF", Toast.LENGTH_SHORT).show();
             }
         });
+
+        */
+
 
     }
 
