@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">NewsApp</string>
-    <string name="title_activity_onboarding_pager">OnboardingPager</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_onboarding_pager">OnboardingPager</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <!--Onboarding buttons-->
     <string name="skip">Skip</string>
     <string name="finish">Finish</string>
+    <string name="next">Next</string>
+
+    <!--Onboarding page 1 -->
+    <string name="welcome_title">Welcome to NewsApp</string>
+    <string name="welcome_tagline">Your simple news app</string>
 </resources>

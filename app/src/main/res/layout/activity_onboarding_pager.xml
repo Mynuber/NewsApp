@@ -18,21 +18,18 @@
 
     </android.support.v4.view.ViewPager>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:alpha="0.12"
-        android:background="@color/white" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin">
+        android:background="#11000000">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.12"
+            android:background="@color/white" />
 
         <Button
             android:id="@+id/intro_btn_skip"
@@ -40,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
+            android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/skip"
             android:textColor="@color/white" />
 
@@ -51,11 +49,24 @@
 
             <ImageView
                 android:id="@+id/intro_indicator_0"
-                android:layout_width="8dp"
-                android:layout_height="8dp" />
-            <!--android:background="@drawable/indicator_unselected"/>-->
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/circle" />
 
-            <!-- Your other 2 indicators here -->
+            <ImageView
+                android:id="@+id/intro_indicator_1"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/circle_outline" />
+
+            <ImageView
+                android:id="@+id/intro_indicator_2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/circle_outline" />
 
         </LinearLayout>
 
@@ -66,19 +77,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
+            android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/finish"
             android:textColor="@color/white"
             android:visibility="gone" />
 
-        <ImageButton
+        <Button
             android:id="@+id/intro_btn_next"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:padding="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_chevron_right_white"
-            android:tint="@color/white" />
+            android:text="@string/next"
+            android:textColor="@color/white" />
 
     </FrameLayout>
 
