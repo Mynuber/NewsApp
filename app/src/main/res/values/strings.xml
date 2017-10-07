@@ -12,5 +12,14 @@
 
     <!--Onboarding page 1 -->
     <string name="welcome_title">Welcome to NewsApp</string>
-    <string name="welcome_tagline">Your simple news app</string>
+    <string name="welcome_tagline">Your simple news application</string>
+
+    <!--Onboarding page 2-->
+    <!--<string name="setup_title"><![CDATA[Locale & Category]]></string>-->
+    <string name="setup_title">Quick Setup</string>
+    <string name="setup_language">Article Language</string>
+    <string name="setup_categories">News Categories</string>
+    <string name="SPK_SOURCE_RESPONSE">SP_SOURCE_RESPONSE</string>
+
+
 </resources>

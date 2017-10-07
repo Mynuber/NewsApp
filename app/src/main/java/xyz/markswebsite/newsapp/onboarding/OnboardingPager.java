@@ -14,8 +14,20 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import xyz.markswebsite.newsapp.MainActivity;
 import xyz.markswebsite.newsapp.R;
+import xyz.markswebsite.newsapp.Utility.SharedPreferenceUtil;
+import xyz.markswebsite.newsapp.api.NewsApi;
+import xyz.markswebsite.newsapp.api.RetrofitConsumer;
+import xyz.markswebsite.newsapp.models.Source;
+import xyz.markswebsite.newsapp.models.SourcesResponse;
 
 public class OnboardingPager extends AppCompatActivity {
 
@@ -36,8 +48,34 @@ public class OnboardingPager extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        getSources();       //get what we need from api for quicksetup
         findViews();
+        setupButtonListeners();
         setPageListener();
+    }
+
+    private void getSources() {
+        NewsApi newsApi = RetrofitConsumer.getInstance().getNewsApi();
+        Call<SourcesResponse> call = newsApi.getAllSources(null, null, null);       //we don't want to restrict the call (setup should show everything)
+        call.enqueue(new Callback<SourcesResponse>() {
+            @Override
+            public void onResponse(Call<SourcesResponse> call, Response<SourcesResponse> response) {
+                if(response.isSuccessful()){
+                    SourcesResponse sourcesResponse = response.body();
+//                    for (Source s : sourcesResponse.getSources()){
+//                        Log.d("", "onResponse: " + s.getName());
+//                    }
+                    SharedPreferenceUtil.saveObject(OnboardingPager.this, getString(R.string.SPK_SOURCE_RESPONSE), sourcesResponse);
+                } else {
+                    throw new RuntimeException("why is this broken");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SourcesResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failed to get sources", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void findViews() {
@@ -52,7 +90,9 @@ public class OnboardingPager extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.intro_btn_next);
         skipButton = (Button) findViewById(R.id.intro_btn_skip);
         finishButton = (Button) findViewById(R.id.intro_btn_finish);
+    }
 
+    public void setupButtonListeners(){
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,8 +110,8 @@ public class OnboardingPager extends AppCompatActivity {
 
         skipButton.setOnClickListener(skipSettings);
         finishButton.setOnClickListener(skipSettings);
-
     }
+
 
 
     public void setPageListener(){
@@ -128,12 +168,14 @@ public class OnboardingPager extends AppCompatActivity {
                     return new WelcomeFragment();
                 case 1:
                     //Language and Categories QuickSetup
+                    //TODO
                     return new QuickSetupCategoriesFragment();
+//                    return QuickSetupCategoriesFragment.newInstance();
                 case 2:
                     //available sources
                     return new QuickSetupNewsSourceFragment();
                 default:
-                    throw new RuntimeException("position is out of bounds? search for this");
+                    throw new RuntimeException("This should be impossible");
             }
         }
 

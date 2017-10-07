@@ -21,7 +21,6 @@ public class SharedPreferenceUtil {
     public <T extends Object> T readObject(AppCompatActivity activity, String key, Class<T> type) {
         Gson gson = new Gson();
         String value = readStringFromSharedPreferences(activity, key);
-
         if(value == null){
             return null;
         }
@@ -37,7 +36,7 @@ public class SharedPreferenceUtil {
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();     //.commit is the alternative if you want it asynchronously
     }
 
 
