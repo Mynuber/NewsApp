@@ -18,7 +18,7 @@ public class SharedPreferenceUtil {
         writeStringToSharedPreferences(activity, key, gson.toJson(object));
     }
 
-    public <T extends Object> T readObject(AppCompatActivity activity, String key, Class<T> type) {
+    public static <T extends Object> T readObject(AppCompatActivity activity, String key, Class<T> type) {
         Gson gson = new Gson();
         String value = readStringFromSharedPreferences(activity, key);
         if(value == null){
