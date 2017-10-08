@@ -1,5 +1,6 @@
 package xyz.markswebsite.newsapp.onboarding;
 
+import android.os.SystemClock;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -42,15 +43,23 @@ public class SourceCategoriesAdapter extends RecyclerView.Adapter<SourceCategori
         Collections.sort(categoriesList);
     }
 
-    public List<String> getCategoriesAvailable() {
-        return categoriesList;
-    }
-
     public void setNewCategories(Set<String> newCategories) {
-        categoriesList.clear();
-        categoriesList.addAll(newCategories);
-        Collections.sort(categoriesList);
-        notifyDataSetChanged();
+        List<String> cList = new ArrayList<>();
+        cList.addAll(newCategories);
+        Collections.sort(cList);
+
+        int j = 0;      //the old categories iterator
+        for (int i = 0 ; i < cList.size() ; i++){
+            while(cList.get(i).compareTo(categoriesList.get(j)) > 0){
+                categoriesList.remove(j);
+                notifyItemRemoved(j);
+            }
+            if(cList.get(i).compareTo(categoriesList.get(j)) < 0){
+                categoriesList.add(j, cList.get(i));
+                notifyItemInserted(j);
+            }
+            j++;
+        }
     }
 
     @Override

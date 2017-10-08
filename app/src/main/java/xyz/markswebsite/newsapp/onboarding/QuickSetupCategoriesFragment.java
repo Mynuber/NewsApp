@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -77,7 +80,6 @@ public class QuickSetupCategoriesFragment extends Fragment {
                 SourceUtils.getCategoriesAvailable(mSourceResponse, languagesSelected)
         );
 
-//        added ? languagesSelected.add(language): languagesSelected.remove(language);
     }
 
     private void setCategoriesRecycler(Set<String> categories) {
@@ -92,7 +94,9 @@ public class QuickSetupCategoriesFragment extends Fragment {
 //                changeLanguages(language, added);
             }
         });
+
         mCategoriesRecycler.setAdapter(mCategoriesAdapter);
+        mCategoriesRecycler.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void setLanguageRecycler(Set<String> languages) {
