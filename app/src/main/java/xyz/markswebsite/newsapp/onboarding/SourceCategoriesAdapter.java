@@ -4,7 +4,10 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import xyz.markswebsite.newsapp.R;
  * Created by Mark on 8/10/2017.
  */
 
-public class SourceCategoriesAdapter  extends RecyclerView.Adapter<SourceCategoriesAdapter.ViewHolder>{
+public class SourceCategoriesAdapter extends RecyclerView.Adapter<SourceCategoriesAdapter.ViewHolder> {
 
     private List<String> categoriesList = new ArrayList<>();
 
@@ -39,6 +42,17 @@ public class SourceCategoriesAdapter  extends RecyclerView.Adapter<SourceCategor
         Collections.sort(categoriesList);
     }
 
+    public List<String> getCategoriesAvailable() {
+        return categoriesList;
+    }
+
+    public void setNewCategories(Set<String> newCategories) {
+        categoriesList.clear();
+        categoriesList.addAll(newCategories);
+        Collections.sort(categoriesList);
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
@@ -49,8 +63,13 @@ public class SourceCategoriesAdapter  extends RecyclerView.Adapter<SourceCategor
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String myString = categoriesList.get(position);
-        String upperString = myString.substring(0,1).toUpperCase() + myString.substring(1);
+        String upperString = myString.substring(0, 1).toUpperCase() + myString.substring(1);
         holder.checkBox.setText(upperString);
+    }
+
+    private void setAnimation(View viewToAnimate) {
+        Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), android.R.anim.slide_in_left);
+        viewToAnimate.startAnimation(animation);
     }
 
     @Override

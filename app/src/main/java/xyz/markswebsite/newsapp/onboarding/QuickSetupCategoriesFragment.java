@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,8 @@ import xyz.markswebsite.newsapp.models.SourcesResponse;
 
 public class QuickSetupCategoriesFragment extends Fragment {
 
+    private SourcesResponse mSourceResponse;
+
     private RecyclerView mLanguageRecycler, mCategoriesRecycler;
     private RecyclerView.LayoutManager mLanguageLayoutManager, mCategoriesLayoutManager;
     private RecyclerView.Adapter mLanguageAdapter, mCategoriesAdapter;
@@ -43,21 +46,38 @@ public class QuickSetupCategoriesFragment extends Fragment {
         mCategoriesRecycler = (RecyclerView) rootView.findViewById(R.id.onboarding_categories_recycler);
 
         setRecyclers();
-
         return rootView;
     }
 
     private void setRecyclers() {
-        //TODO: get source list from SP as well as any saved settings and display them
         SourcesResponse sourceResponse =
                 SharedPreferenceUtil.readObject((AppCompatActivity) getActivity(),
                         getString(R.string.SPK_SOURCE_RESPONSE),
                         SourcesResponse.class);
 
+        mSourceResponse = sourceResponse;
+
         setLanguageRecycler(SourceUtils.getLanguagesAvailable(sourceResponse));
+        updateLanguagesSelectedFromAdapter();
+        setCategoriesRecycler(SourceUtils.getCategoriesAvailable(sourceResponse, languagesSelected));
+    }
 
-        setCategoriesRecycler(SourceUtils.getCategoriesAvailable(sourceResponse));
+    private void updateLanguagesSelectedFromAdapter(){
+        languagesSelected.addAll(((SourceLanguageAdapter)mLanguageRecycler.getAdapter()).getSelectedLanguages());
+    }
 
+    private void changeLanguages(String language, boolean added){
+        if(added){
+            languagesSelected.add(language);
+        }else {
+            languagesSelected.remove(language);
+        }
+
+        ((SourceCategoriesAdapter)(mCategoriesRecycler.getAdapter())).setNewCategories(
+                SourceUtils.getCategoriesAvailable(mSourceResponse, languagesSelected)
+        );
+
+//        added ? languagesSelected.add(language): languagesSelected.remove(language);
     }
 
     private void setCategoriesRecycler(Set<String> categories) {
@@ -68,11 +88,11 @@ public class QuickSetupCategoriesFragment extends Fragment {
         mCategoriesAdapter = new SourceCategoriesAdapter(categories, new OnItemsSelected() {
             @Override
             public void onChanged(String language, boolean added) {
-                //todo: if they change update a string to let the user know how many matches they have
+                //todo
+//                changeLanguages(language, added);
             }
         });
         mCategoriesRecycler.setAdapter(mCategoriesAdapter);
-        //todo write an adapter
     }
 
     private void setLanguageRecycler(Set<String> languages) {
@@ -83,8 +103,8 @@ public class QuickSetupCategoriesFragment extends Fragment {
         mLanguageAdapter = new SourceLanguageAdapter(languages, new OnItemsSelected() {
             @Override
             public void onChanged(String language, boolean added) {
-                Log.d("123", "onChanged: " +  language + " was " + (added ? "added" : "removed") );
-                //todo animate the bottom recyclerview and notify it of changes the user makes
+//                Log.d("123", "onChanged: " +  language + " was " + (added ? "added" : "removed") );
+                changeLanguages(language, added);
             }
         });
 

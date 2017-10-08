@@ -22,6 +22,7 @@ import xyz.markswebsite.newsapp.R;
  */
 
 public class SourceLanguageAdapter extends RecyclerView.Adapter<SourceLanguageAdapter.ViewHolder> {
+
     private List<String> languageList = new ArrayList<>();
     private Set<String> languagesSelected = new HashSet<>();
     private QuickSetupCategoriesFragment.OnItemsSelected onItemsSelectedListener;
@@ -45,6 +46,10 @@ public class SourceLanguageAdapter extends RecyclerView.Adapter<SourceLanguageAd
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.widget_language_circle, parent, false);
         return new ViewHolder(v);
+    }
+
+    public Set<String> getSelectedLanguages () {
+        return languagesSelected;
     }
 
     @Override

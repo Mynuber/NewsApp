@@ -28,4 +28,35 @@ public class SourceUtils {
         }
         return temp;
     }
+
+//    public static Set<String> getCategoriesAvailable(SourcesResponse sourceResponse, String language) {
+//        Set<String> temp = new HashSet<>();
+//        for(Source s : sourceResponse.getSources()){
+//            if (s.getLanguage().equals(language)){
+//                temp.add(s.getCategory());
+//                break;
+//            }
+//        }
+//        return  temp;
+//    }
+
+    public static Set<String> getCategoriesAvailable(SourcesResponse sourceResponse, Set<String> languagesSelected) {
+        Set<String> temp = new HashSet<>();
+
+        //if we have no language selected default to all
+        if(languagesSelected.isEmpty()){
+            return getCategoriesAvailable(sourceResponse);
+        }
+
+        //otherwise we will get any sources that match the languages we want
+        for(Source s : sourceResponse.getSources()){
+            for(String language: languagesSelected){
+                if (s.getLanguage().equals(language)){
+                    temp.add(s.getCategory());
+                    break;
+                }
+            }
+        }
+        return temp;
+    }
 }
