@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="48dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="16dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -21,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="4dp">
 
@@ -29,7 +28,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/setup_language"
             android:textAllCaps="true"
             android:textColor="@color/white"
@@ -54,7 +52,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/setup_categories"
             android:textAllCaps="true"
             android:textColor="@color/white"
@@ -64,7 +61,14 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/onboarding_categories_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_categories_recycler"
+            android:overScrollMode="never"
+            android:padding="2dp">
 
         </android.support.v7.widget.RecyclerView>
 

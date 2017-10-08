@@ -24,6 +24,7 @@ import xyz.markswebsite.newsapp.R;
 public class SourceLanguageAdapter extends RecyclerView.Adapter<SourceLanguageAdapter.ViewHolder> {
     private List<String> languageList = new ArrayList<>();
     private Set<String> languagesSelected = new HashSet<>();
+    private QuickSetupCategoriesFragment.OnItemsSelected onItemsSelectedListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -35,7 +36,8 @@ public class SourceLanguageAdapter extends RecyclerView.Adapter<SourceLanguageAd
         }
     }
 
-    public SourceLanguageAdapter(Set<String> availableLanguages) {
+    public SourceLanguageAdapter(Set<String> availableLanguages, QuickSetupCategoriesFragment.OnItemsSelected onItemsSelectedListener) {
+        this.onItemsSelectedListener = onItemsSelectedListener;
         languageList.addAll(availableLanguages);
     }
 
@@ -45,12 +47,9 @@ public class SourceLanguageAdapter extends RecyclerView.Adapter<SourceLanguageAd
         return new ViewHolder(v);
     }
 
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.checkBox.setText(languageList.get(position));
-        holder.checkBox.setButtonDrawable(null);
-
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +58,7 @@ public class SourceLanguageAdapter extends RecyclerView.Adapter<SourceLanguageAd
                 }else {
                     languagesSelected.remove(languageList.get(position));
                 }
+                onItemsSelectedListener.onChanged(languageList.get(position), holder.checkBox.isChecked());
             }
         });
     }

@@ -8,9 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +31,8 @@ public class QuickSetupCategoriesFragment extends Fragment {
     private RecyclerView mLanguageRecycler, mCategoriesRecycler;
     private RecyclerView.LayoutManager mLanguageLayoutManager, mCategoriesLayoutManager;
     private RecyclerView.Adapter mLanguageAdapter, mCategoriesAdapter;
+
+    private Set<String> languagesSelected = new HashSet<>(), categoriesSelected = new HashSet<>();
 
     @Nullable
     @Override
@@ -52,7 +56,8 @@ public class QuickSetupCategoriesFragment extends Fragment {
 
         setLanguageRecycler(SourceUtils.getLanguagesAvailable(sourceResponse));
 
-//        setCategoriesRecycler();
+        setCategoriesRecycler(SourceUtils.getCategoriesAvailable(sourceResponse));
+
     }
 
     private void setCategoriesRecycler(Set<String> categories) {
@@ -60,6 +65,13 @@ public class QuickSetupCategoriesFragment extends Fragment {
         mCategoriesLayoutManager = new LinearLayoutManager(getContext());
         mCategoriesRecycler.setLayoutManager(mCategoriesLayoutManager);
 
+        mCategoriesAdapter = new SourceCategoriesAdapter(categories, new OnItemsSelected() {
+            @Override
+            public void onChanged(String language, boolean added) {
+                //todo: if they change update a string to let the user know how many matches they have
+            }
+        });
+        mCategoriesRecycler.setAdapter(mCategoriesAdapter);
         //todo write an adapter
     }
 
@@ -68,8 +80,20 @@ public class QuickSetupCategoriesFragment extends Fragment {
         mLanguageLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mLanguageRecycler.setLayoutManager(mLanguageLayoutManager);
 
-        mLanguageAdapter = new SourceLanguageAdapter(languages);
+        mLanguageAdapter = new SourceLanguageAdapter(languages, new OnItemsSelected() {
+            @Override
+            public void onChanged(String language, boolean added) {
+                Log.d("123", "onChanged: " +  language + " was " + (added ? "added" : "removed") );
+                //todo animate the bottom recyclerview and notify it of changes the user makes
+            }
+        });
+
         mLanguageRecycler.setAdapter(mLanguageAdapter);
     }
+
+    public interface OnItemsSelected {
+        void onChanged(String language, boolean added);
+    }
+
 
 }

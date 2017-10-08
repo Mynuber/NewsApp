@@ -84,8 +84,8 @@ public class OnboardingPager extends AppCompatActivity {
         indicators[2] = (ImageView) findViewById(R.id.intro_indicator_2);
 
         colourList[0] = ResourcesCompat.getColor(getResources(), R.color.firenze1, null);
-        colourList[1] = ResourcesCompat.getColor(getResources(), R.color.firenze4, null);
-        colourList[2] = ResourcesCompat.getColor(getResources(), R.color.firenze5, null);
+        colourList[1] = ResourcesCompat.getColor(getResources(), R.color.firenze3, null);
+        colourList[2] = ResourcesCompat.getColor(getResources(), R.color.firenze4, null);
 
         nextButton = (Button) findViewById(R.id.intro_btn_next);
         skipButton = (Button) findViewById(R.id.intro_btn_skip);

@@ -11,6 +11,7 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_margin="8dp"
+        android:button="@null"
         android:background="@drawable/selector_language_circles"
         android:gravity="center"
         android:padding="4dp">

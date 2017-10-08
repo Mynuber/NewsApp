@@ -19,4 +19,13 @@ public class SourceUtils {
         }
         return temp;
     }
+
+
+    public static Set<String> getCategoriesAvailable(SourcesResponse sourceResponse) {
+        Set<String> temp = new HashSet<>();
+        for(Source s : sourceResponse.getSources()){
+            temp.add(s.getCategory());
+        }
+        return temp;
+    }
 }

@@ -21,5 +21,7 @@
     <color name="firenze3">#FFB03B</color>
     <color name="firenze4">#B64926</color>
     <color name="firenze5">#8E2800</color>
+
     <color name="white">#fff</color>
+    <color name="transparent_white">#80ffffff</color>
 </resources>
